@@ -9,9 +9,15 @@ console.log('Im working. Im JS. Im Beautiful. Im worth it.');
 // but JS는 브라우저에 이미 구성되어 있음, 별도의 다운로드 필요 X
 
 // 1.6
+// 1.7
 // 변수 a를 생성, 값을 넣어줌
-a = 221;
-b = a - 5;
-a = 4
+const a = 221; // const, 변하지 않는 값
+let b = a - 5;
+// a = 4; // error, 재할당 불가
 // a = 221 b = a - 5 // 에러 발생
 console.log(b, a); // 계산결과 확인
+
+// let b = 3; // let, 재선언 불가
+var d = 1;
+var d = 31; // var, 재선언 가능
+console.log(d);
