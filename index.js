@@ -22,7 +22,6 @@ console.log(b, a); // 계산결과 확인
 var d = 1;
 var d = 31; // var, 재선언 가능
 console.log(d);
-*/ 
 
 // 1.8
 // 코멘트(주석), 주석처리되지 않은 코드는 실행의 대상
@@ -41,3 +40,16 @@ const wat = false; // 0, true는 1
 
 // 4. float
 const wa = 55.1; // 소숫점(floating point) 존재
+*/ 
+
+// 1.9
+const monday = "Mon";
+const tue = "Tue";
+const wed = "Wed";
+const thu = "Thu";
+const fri = "Fri";
+console.log(monday, tue, wed, thu, fri);
+
+// 위의 것을 array로 하나로 묶음
+const daysOfWeek = [ "Mon", "Tue", "Wed", "Thu", "Fri" ];
+console.log(daysOfWeek);
