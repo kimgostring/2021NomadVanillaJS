@@ -144,7 +144,6 @@ const title = document.getElementById("title");
 console.log(title);
 
 title.innerHTML = "Hi! From JS"; // HTML의 제목을 JS를 통해 바꿈
-*/
 
 // 2.3
 const title = document.getElementById("title");
@@ -161,3 +160,20 @@ document.title = "I own you now"; // (id="title"이 아닌) 문서 제목 변경
 // document로 가서(HTML 문서 전체에서), 모든 자식들 중 특정 name/id 등 해당하는 것을 찾음
 const title2 = document.querySelector("#title"); // CSS 선택자와 유사 (id로 찾고 싶으면 #, class의 경우 .)
 console.log(title2);
+*/
+
+// 2.4
+const title = document.querySelector("#title");
+
+function handleResize(event) {
+    console.log(event);
+}
+
+function handleClick(event) {
+    title.style.color = "red";
+}
+
+// 함수명()은 바로 그 함수를 호출하는 것, ()를 붙이지 않고 이름만 넘겨주면 필요할 때 호출하게 됨
+window.addEventListener("resize", handleResize); // 이벤트, 이벤트 발생 시 실행될 함수명
+
+title.addEventListener("click", handleClick);
