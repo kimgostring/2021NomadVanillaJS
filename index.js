@@ -176,7 +176,6 @@ function handleClick(event) {
 window.addEventListener("resize", handleResize); // 이벤트, 이벤트 발생 시 실행될 함수명
 
 title.addEventListener("click", handleClick);
-*/
 
 // 2.5
 // 조건문
@@ -197,3 +196,35 @@ if (age > 18) {
 } else {
     console.log("you cant");
 }
+*/
+
+// 2.6
+const title = document.querySelector("#title");
+const BASE_COLOR = "rgb(52, 73, 94)"; // "#34495e"와 같은 색
+const OTHER_COLOR = "#7f8c8d"; // rgb로 하는 것이 좋음, JS는 모든 색을 rgb로 자동 변환해서 사용
+
+function handleClick(event) {
+    // console.log(title.style.color);
+
+    // 클릭할 때마다 색이 바뀌도록 조건문 작성
+    const currentColor = title.style.color;
+    if (currentColor === BASE_COLOR) {
+        title.style.color = OTHER_COLOR;
+    } else {
+        title.style.color = BASE_COLOR;
+    }
+}
+
+function init() {
+    title.style.color = BASE_COLOR;
+    title.addEventListener("mouseenter", handleClick); // 마우스가 영역으로 들어올 때 발생
+}
+
+// main 함수처럼, 이를 이렇게 실행하는 것이 니콜의 습관 
+init();
+
+function handleOnline() {
+    console.log("online");
+}
+
+window.addEventListener("offline", handleOnline); // 컴퓨터에 인터넷이 막 연결되었을 때만 뜸
