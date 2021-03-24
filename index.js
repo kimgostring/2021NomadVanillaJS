@@ -199,32 +199,39 @@ if (age > 18) {
 */
 
 // 2.6
+// 2.7
 const title = document.querySelector("#title");
-const BASE_COLOR = "rgb(52, 73, 94)"; // "#34495e"와 같은 색
-const OTHER_COLOR = "#7f8c8d"; // rgb로 하는 것이 좋음, JS는 모든 색을 rgb로 자동 변환해서 사용
+const CLICKED_CLASS = "clicked"; // CSS 클래스 이름 저장
 
-function handleClick(event) {
-    // console.log(title.style.color);
+function handleClicked() {
+    // console.log(currentClass);
+    
+    // 1. HTML에서 설정해 둔 처음의 클래스를 고려하지 않는 디자인 (처음 설정값마저 다 사라져버림)
+    // const crrentClass = title.className;
+    
+    // if (currentClass !== CLICKED_CLASS) {
+    //     title.className = CLICKED_CLASS;
+    // } else {
+    //     title.className = ""; // 클래스 이름 지움
+    // }
 
-    // 클릭할 때마다 색이 바뀌도록 조건문 작성
-    const currentColor = title.style.color;
-    if (currentColor === BASE_COLOR) {
-        title.style.color = OTHER_COLOR;
-    } else {
-        title.style.color = BASE_COLOR;
-    }
+    // 2. className으로 직접 문자열을 비교하는 대신, 다양한 메소드를 제공하는 classList 사용하기
+    // const hasClass = title.classList.contains(CLICKED_CLASS);
+
+    // if (hasClass) {
+    //     title.classList.remove(CLICKED_CLASS); // 클래스 이름 지움
+    // } else {
+    //     title.classList.add(CLICKED_CLASS);
+    // }
+
+    // 3. toggle을 이용하는 방식, 위의 내용과 정확히 동일
+    // 해당 이름의 클래스가 포함되는지를 확인하여, 있으면 지우고 없으면 추가해줌
+    title.classList.toggle(CLICKED_CLASS); 
 }
 
 function init() {
-    title.style.color = BASE_COLOR;
-    title.addEventListener("mouseenter", handleClick); // 마우스가 영역으로 들어올 때 발생
+    title.addEventListener("click", handleClicked); // 마우스가 영역으로 들어올 때 발생
 }
 
 // main 함수처럼, 이를 이렇게 실행하는 것이 니콜의 습관 
 init();
-
-function handleOnline() {
-    console.log("online");
-}
-
-window.addEventListener("offline", handleOnline); // 컴퓨터에 인터넷이 막 연결되었을 때만 뜸

@@ -2,6 +2,15 @@ body {
     background-color:#ecf0f1;
 }
 
+.btn {
+    cursor: pointer;
+}
+
 h1 {
- 
+    color:#34495e;
+    transition: color .5s ease-in-out; /* 색이 이걸로/다른 걸로 변화할 때 천천히 변화함 */
+}
+
+.clicked {
+    color:#7f8c8d;
 }
