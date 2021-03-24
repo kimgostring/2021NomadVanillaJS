@@ -1,3 +1,4 @@
+/* 
 // 1.4
 // 경고 메세지
 // alert('Im working. Im JS. Im Beautiful. Im worth it.');
@@ -21,3 +22,22 @@ console.log(b, a); // 계산결과 확인
 var d = 1;
 var d = 31; // var, 재선언 가능
 console.log(d);
+*/ 
+
+// 1.8
+// 코멘트(주석), 주석처리되지 않은 코드는 실행의 대상
+// 일단은 const로 만들고, 변경할 필요가 있을 때 let으로 만들자
+
+// 1. string
+// 모든 걸 같이 붙인 것, 보통 텍스트 스트링을 말함
+const what = "5656"; // ""가 없다면, 정의된 키워드(변수)를 찾으려고 함, error
+// "" 안에 숫자가 들어가도 텍스트임
+console.log(what);
+
+// 2. boolean (텍스트 X)
+const wat = false; // 0, true는 1
+
+// 3. number
+
+// 4. float
+const wa = 55.1; // 소숫점(floating point) 존재
