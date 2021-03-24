@@ -78,7 +78,6 @@ kayInfo.gender = "Female";
 console.log(kayInfo.gender);
 
 console.log(kayInfo.favFood[1].name);
-*/
 
 // 2.0
 console.log(console);
@@ -90,3 +89,48 @@ function sayHello(name) {
 }
 
 sayHello("kay");
+*/
+
+// 2.1
+function sayHello(name, age) {
+    // 1. 콤마
+    console.log("Hello!", name, 'you are', age, "years old.");
+    
+    // 2. +로 문자열 잇기
+    console.log("Hello! " + name + " you are " + age + " years old.");
+
+    // 3. 백틱 (`)
+    console.log(`Hello! ${name} you are ${age} years old.`);
+
+    // 리턴값
+    return `Hello! ${name} you are ${age} years old.`;
+}
+
+const greetKay = sayHello("kay", 23); // 함수 내 문장들 실행한 뒤, 리턴값 받음
+console.log(greetKay); // 리턴값 출력
+
+// 객체 안 함수 생성
+const calc = {
+    plus: function(a, b) {
+        return a + b;
+    },
+
+    minus: function(a, b) {
+        return a - b;
+    }, 
+
+    mult: function(a, b) {
+        return a * b;
+    },
+
+    div: function(a, b) {
+        return a / b;
+    },
+
+    power: function(a, b) {
+        return a ** b; // power
+    }
+};
+
+const result = calc.plus(5, 6); // 객체 안의 함수 실행, 리턴값 받음
+console.log(result);
