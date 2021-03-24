@@ -89,7 +89,6 @@ function sayHello(name) {
 }
 
 sayHello("kay");
-*/
 
 // 2.1
 function sayHello(name, age) {
@@ -134,3 +133,15 @@ const calc = {
 
 const result = calc.plus(5, 6); // 객체 안의 함수 실행, 리턴값 받음
 console.log(result);
+*/
+
+// 2.2
+// HTML과 JS 같이 사용하기
+console.log(document); // f12 눌러서 보면, HTML document가 보임 (그게 JS가 됨)
+
+// 모든 HTML이 객체가 됨, DOM
+// id 값을 통해 해당 id의 내용을 객체로 만들어 내용 받아오기
+const title = document.getElementById("title");
+console.log(title);
+
+title.innerHTML = "Hi! From JS"; // HTML의 제목을 JS를 통해 바꿈
