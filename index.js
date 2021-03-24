@@ -40,7 +40,6 @@ const wat = false; // 0, true는 1
 
 // 4. float
 const wa = 55.1; // 소숫점(floating point) 존재
-*/ 
 
 // 1.9
 const monday = "Mon";
@@ -53,3 +52,30 @@ console.log(monday, tue, wed, thu, fri);
 // 위의 것을 array로 하나로 묶음
 const daysOfWeek = [ "Mon", "Tue", "Wed", "Thu", "Fri" ];
 console.log(daysOfWeek);
+*/ 
+
+// 1.10
+// 개인 정보의 저장
+// array를 쓰면 제대로 정렬할 수 X, 각각의 정보의 순서를 기억해야 의미 있음
+const nicoInfo = [ "Nicolas", 55, true, "Seoul" ];
+console.log(nicoInfo);
+
+// object
+const kayInfo = { 
+    name:"Nico",
+    age:33,
+    gender:"Male",
+    isHandsome:true,
+    favMovies: [ "LOTR", "Oldboy" ],
+    favFood: [
+        { name:"Kimchi", fatty:false }, 
+        { name:"Cheese burger", fatty:true }
+    ]
+};
+
+console.log(kayInfo);
+
+kayInfo.gender = "Female";
+console.log(kayInfo.gender);
+
+console.log(kayInfo.favFood[1].name);
