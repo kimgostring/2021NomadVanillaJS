@@ -52,7 +52,6 @@ console.log(monday, tue, wed, thu, fri);
 // 위의 것을 array로 하나로 묶음
 const daysOfWeek = [ "Mon", "Tue", "Wed", "Thu", "Fri" ];
 console.log(daysOfWeek);
-*/ 
 
 // 1.10
 // 개인 정보의 저장
@@ -79,3 +78,15 @@ kayInfo.gender = "Female";
 console.log(kayInfo.gender);
 
 console.log(kayInfo.favFood[1].name);
+*/
+
+// 2.0
+console.log(console);
+console.log("hello kay"); // 메세지가 안에 없으면 동작 X
+
+// 함수 정의
+function sayHello(name) {
+    console.log("Hello!", name);
+}
+
+sayHello("kay");
