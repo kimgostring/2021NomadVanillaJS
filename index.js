@@ -133,7 +133,6 @@ const calc = {
 
 const result = calc.plus(5, 6); // 객체 안의 함수 실행, 리턴값 받음
 console.log(result);
-*/
 
 // 2.2
 // HTML과 JS 같이 사용하기
@@ -145,3 +144,20 @@ const title = document.getElementById("title");
 console.log(title);
 
 title.innerHTML = "Hi! From JS"; // HTML의 제목을 JS를 통해 바꿈
+*/
+
+// 2.3
+const title = document.getElementById("title");
+// 수정 가능, but 위의 것 찾지 못할 경우 innerHTML of null을 반환
+title.innerHTML = "Hi! From JS";
+
+console.dir(title); // f12에서 할 수 있는 작업들 확인 가능
+console.dir(document);
+
+title.style.color = "red"; // 글자 색 변경
+document.title = "I own you now"; // (id="title"이 아닌) 문서 제목 변경 가능
+
+// 노드의 첫 번째 자식 반환 (depth-first, pre-order)
+// document로 가서(HTML 문서 전체에서), 모든 자식들 중 특정 name/id 등 해당하는 것을 찾음
+const title2 = document.querySelector("#title"); // CSS 선택자와 유사 (id로 찾고 싶으면 #, class의 경우 .)
+console.log(title2);
