@@ -8,7 +8,50 @@ const todoForm = document.querySelector(".js-todoForm"),
 
 const TODOS_LS = "todos";
 
-const todos = [];
+let todos = []; // todo 업데이트를 위해 const에서 let으로 변경
+
+function deleteTodo(event) {
+    // console.dir(event.target); // 이를 통해 parentNode의 존재 확인
+
+    // 1. HTML 문서에서 삭제 
+    const btn = event.target;
+    const li = btn.parentNode; 
+    todoList.removeChild(li);
+
+    // !! id값 수정 저장도 필요 
+        // todo의 id는 object의 요소 id값, li는 HTML문서 tag li의 id값
+        // object가 2개인 상황에서 id=1인 것을 삭제하고, 새로 하나를 생성하면 id=2개인 요소가 2개가 됨
+        // 이 상태에서 둘 중 하나의 것을 제거하게 되면, 둘 다 id=2이므로 이 함수에서 둘 다 false를 반환하고
+        // 결국 local storage에는 두 값이 모두 삭제됨
+
+	// 여기에서 굳이 id값을 1, 2, 3... 순서대로 지정할 필요 없음, 그렇게 되면 문제 해결 쉬워짐
+    
+    // 2. 배열에서 삭제 및 local storage에 결과 저장
+   
+    // - 내 방법, 여기서 추가로 id값을 하나하나 바꿔주어야 함 
+    // todos.pop(parseInt(li.id) - 1);
+   
+    // - nicolas 방법
+    // todo를 clean
+    // 배열.filter()를 사용하면 각 item에 대해 함수 실행됨
+    // 함수에서 true 리턴하는 것들을 모아 새로운 array 만들어 리턴
+    const cleanTodos = todos.filter(function(todo) {
+        // !! (추가) local storage에 id값 수정, 저장도 필요
+        const result = (todo.id !== parseInt(li.id)); 
+        
+        if (todo.id > li.id) todo.id--;
+        return result; 
+    }); 
+    todos = cleanTodos; // 바꿔치기, 이것 때문에 todos가 let으로 선언되었어야 함
+
+    // !! (추가) 3. html 문서의 id값도 index 맞추기
+    const liList = todoList.querySelectorAll("li");
+    for (let i = li.id - 1; i < liList.length; i++) {
+        liList[i].id = i + 1;
+    }
+
+    saveTodos();
+}
 
 function saveTodos() {
     localStorage.setItem(TODOS_LS, JSON.stringify(todos));
@@ -23,6 +66,7 @@ function paintTodo(text) {
     span.innerText = text; // 입력한 todo
     const delBtn = document.createElement("button");
     delBtn.innerText = "❌"; // 삭제 버튼 
+    delBtn.addEventListener("click", deleteTodo); // 버튼 클릭시 todo 삭제
 
     const newID = todos.length + 1 ;
 
