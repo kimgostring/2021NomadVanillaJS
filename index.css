@@ -6,3 +6,12 @@ h1 {
     color:#34495e;
     transition: color .5s ease-in-out; /* 색이 이걸로/다른 걸로 변화할 때 천천히 변화함 */
 }
+
+.form, 
+.greeting { 
+    display: none;
+}
+
+.showing { /* 해당 클래스를 통해, 인풋 박스와 인사말을 보여줬다 지웠다 함 */
+    display: block;
+}
