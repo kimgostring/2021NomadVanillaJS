@@ -4,100 +4,152 @@
 // 이는 함수명도 마찬가지! but 함수는 중복 선언이 가능
 const todoForm = document.querySelector(".js-todoForm"),
     todoInput = todoForm.querySelector("input"),
-    todoList = document.querySelector(".js-todoList");
+    doingTodoList = document.querySelector(".js-doingTodoList"),
+    finishedTodoList = document.querySelector(".js-finishedTodoList");
 
-const TODOS_LS = "todos";
+const DOING_TODOS_LS = "doingTodos";
+const FINISHED_TODOS_LS = "finishedTodos";
 
-let todos = []; // todo 업데이트를 위해 const에서 let으로 변경
+const DEL_BTN = "delBtn";
+const FIN_BTN = "finBtn";
+const FIN_TODO = "finTodo";
 
-function deleteTodo(event) {
-    // console.dir(event.target); // 이를 통해 parentNode의 존재 확인
+let doingTodos = []; // todo 업데이트를 위해 const에서 let으로 변경
+let finishedTodos = [];
 
-    // 1. HTML 문서에서 삭제 
-    const btn = event.target;
-    const li = btn.parentNode; 
-    todoList.removeChild(li);
+function toggleTodo(event) {
+    const li = event.target.parentNode;
+    const btn = li.querySelector(`.${FIN_BTN}`);
 
-    // !! id값 수정 저장도 필요 
-        // todo의 id는 object의 요소 id값, li는 HTML문서 tag li의 id값
-        // object가 2개인 상황에서 id=1인 것을 삭제하고, 새로 하나를 생성하면 id=2개인 요소가 2개가 됨
-        // 이 상태에서 둘 중 하나의 것을 제거하게 되면, 둘 다 id=2이므로 이 함수에서 둘 다 false를 반환하고
-        // 결국 local storage에는 두 값이 모두 삭제됨
+    const text = li.querySelector("span").innerText;
+    const isFin = li.classList.contains(FIN_TODO);
 
-	// 여기에서 굳이 id값을 1, 2, 3... 순서대로 지정할 필요 없음, 그렇게 되면 문제 해결 쉬워짐
-    
-    // 2. 배열에서 삭제 및 local storage에 결과 저장
-   
-    // - 내 방법, 여기서 추가로 id값을 하나하나 바꿔주어야 함 
-    // todos.pop(parseInt(li.id) - 1);
-   
-    // - nicolas 방법
-    // todo를 clean
-    // 배열.filter()를 사용하면 각 item에 대해 함수 실행됨
-    // 함수에서 true 리턴하는 것들을 모아 새로운 array 만들어 리턴
-    const cleanTodos = todos.filter(function(todo) {
-        // !! (추가) local storage에 id값 수정, 저장도 필요
-        const result = (todo.id !== parseInt(li.id)); 
-        
-        if (todo.id > li.id) todo.id--;
-        return result; 
-    }); 
-    todos = cleanTodos; // 바꿔치기, 이것 때문에 todos가 let으로 선언되었어야 함
+    if (isFin) { // 끝났던 일정을 다시 복구
+        // 1. 버튼 모양 바꿈
+        li.classList.remove(FIN_TODO);
+        btn.innerText = "🤍";
 
-    // !! (추가) 3. html 문서의 id값도 index 맞추기
-    const liList = todoList.querySelectorAll("li");
-    for (let i = li.id - 1; i < liList.length; i++) {
-        liList[i].id = i + 1;
+        // 2. HTML에서 제거/삭제
+        finishedTodoList.removeChild(li);
+        doingTodoList.appendChild(li);
+    } else { // 안 끝난 일정을 끝냄
+        li.classList.add(FIN_TODO); // 끝났음 표시
+        btn.innerText = "💗";
+
+        doingTodoList.removeChild(li);
+        finishedTodoList.appendChild(li);
     }
 
+    // 3. LS에 수정사항 반영
+    addTodoObj(parseInt(li.id), text, !isFin); // 여기서, parseInt() 적용하지 않으면 문자열로 저장됨
+    delTodoObj(li.id, isFin);
+    console.log("here", doingTodos, finishedTodos);
     saveTodos();
 }
 
-function saveTodos() {
-    localStorage.setItem(TODOS_LS, JSON.stringify(todos));
+function deleteTodo(event) {
+    // console.dir(event.target); // 이를 통해 parentNode의 존재 확인
+    const btn = event.target;
+    const li = btn.parentNode; 
+
+    const isFin = li.classList.contains(FIN_TODO);
+    
+    // 1. HTML 문서에서 삭제 
+    if (isFin) finishedTodoList.removeChild(li);
+    else doingTodoList.removeChild(li);
+    
+    // 2. LS에서 삭제 (id 중복될 일 X, 그냥 그대로 삭제해버리면 됨)
+    // todos.pop(); // 이건 마지막 요소를 pop하는 함수임
+    delTodoObj(li.id, isFin);
+    saveTodos();
+}  
+
+function addTodoObj(id, text, isFin) { 
+    const todoObj = {
+        text,
+        id // 1부터 시작해서, 몇 번째 todo인지 기록
+    };
+
+    if (isFin) finishedTodos.push(todoObj);
+    else doingTodos.push(todoObj);
 }
 
-function paintTodo(text) {
+function delTodoObj(id, isFin) {
+    if (isFin) {
+        const cleanTodos = finishedTodos.filter(function(todo) {
+            if (todo.id === parseInt(id)) console.log("del");
+            return todo.id !== parseInt(id); 
+        }); 
+        finishedTodos = cleanTodos; 
+    } else {
+        const cleanTodos = doingTodos.filter(function(todo) {
+            // !! (추가) local storage에 id값 수정, 저장도 필요
+            if (todo.id === parseInt(id)) console.log("del");
+            return todo.id !== parseInt(id); 
+        }); 
+        doingTodos = cleanTodos; // 바꿔치기, 이것 때문에 todos가 let으로 선언되었어야 함
+    }
+}
+
+function mkRandomID() {
+    return new Date().getTime(); // ms로 만들기
+}
+
+function saveTodos() {
+    localStorage.setItem(DOING_TODOS_LS, JSON.stringify(doingTodos));
+    localStorage.setItem(FINISHED_TODOS_LS, JSON.stringify(finishedTodos));
+}
+
+function paintTodo(text, isFin) {
     // console.log(text);
     const li = document.createElement("li"); // HTML에 무언가를 생성할 때
 
-    // li 안에 넣을 요소 생성
     const span = document.createElement("span");
     span.innerText = text; // 입력한 todo
+
     const delBtn = document.createElement("button");
+    // li 안에 넣을 요소 생성
     delBtn.innerText = "❌"; // 삭제 버튼 
+    delBtn.classList.add(DEL_BTN);
     delBtn.addEventListener("click", deleteTodo); // 버튼 클릭시 todo 삭제
 
-    const newID = todos.length + 1 ;
+    const finBtn = document.createElement("button");
+    if (isFin) {
+        finBtn.innerText = "💗"; // 완료 버튼
+        li.classList.add(FIN_TODO);
+    } else finBtn.innerText = "🤍"; // 복구 버튼
+    finBtn.classList.add(FIN_BTN);
+    finBtn.addEventListener("click", toggleTodo);
 
     // li 안에 순서대로 요소 추가
-    li.appendChild(span); // li의 자식으로 span 추가
+    li.appendChild(finBtn);
     li.appendChild(delBtn);
+    li.appendChild(span); // li의 자식으로 span 추가
 
     // todoList에 li 추가 
-    todoList.appendChild(li);
+    if (isFin) finishedTodoList.appendChild(li);
+    else doingTodoList.appendChild(li);
 
     // li에 id 부여, 버튼 클릭 시 어떤 li 지울지 확인하기 위해
+    const newID = mkRandomID();
     li.id = newID;
 
-    const todoObj = {
-        text: text,
-        id: newID // 1부터 시작해서, 몇 번째 todo인지 기록
-    };
-
-    todos.push(todoObj);
-    saveTodos(); // 값을 push한 뒤에 local storage에 저장해야 함
+    // 객체로 만들어 todos들에 추가
+    addTodoObj(newID, text, isFin);
+    // 여기서 saveTodos()는 필요 없음, 이미 LS에 저장되어 있는 내용을 출력할 수도
 }
 
 function handleSubmitTodo(event) {
     event.preventDefault();
     const todoCurrentValue = todoInput.value;
     paintTodo(todoCurrentValue);
+    saveTodos(); // 값을 push한 뒤에 local storage에 저장해야 함
     todoInput.value = ""; // 입력값을 다 받은 뒤, 상자에 보이는 입력값을 지움
 }
 
-function loadTodos() {
-    const loadTodos = localStorage.getItem(TODOS_LS);
+function loadTodos(todosName) {
+    const loadTodos = localStorage.getItem(todosName);
+    const isFin = (todosName === FINISHED_TODOS_LS ? true : false);
 
     if (loadTodos !== null) { // todo에 뭔가 있을 때만 보여주면 됨
         // console.log(loadTodos);
@@ -105,13 +157,16 @@ function loadTodos() {
         // console.log(parsedTodos);
 
         parsedTodos.forEach(function(todo) { // object의 원소를 순서대로 하나씩 출력
-            paintTodo(todo.text);
+            console.log(todo);
+            paintTodo(todo.text, isFin);
         });
     }
 }
 
 function init() {
-    loadTodos();
+    loadTodos(DOING_TODOS_LS);
+    loadTodos(FINISHED_TODOS_LS);
+    
     todoForm.addEventListener("submit", handleSubmitTodo);
 }
 

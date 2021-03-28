@@ -9,6 +9,7 @@ const IMG_NUM = 6;
 // }
 
 function paintImage(imgNum) {
+    const imgFilter = document.createElement("div"); // 어두움 효과 filter 씌우기 위함
     const img = new Image();
     img.src = `images/${imgNum}.jpg`;
     img.classList.add("bgImage");
