@@ -9,8 +9,7 @@ function getTime() {
 
     // 객체 안에 텍스트 넣음(h1에 해당)
     clockTitle.innerText = `${hours < 10 ? `0${hours}` : hours}` // 
-        + `:${minutes < 10 ? `0${minutes}` : minutes}`
-        + `:${seconds < 10 ? `0${seconds}` : seconds}`;
+        + `:${minutes < 10 ? `0${minutes}` : minutes}`;
 }
 
 function init() {

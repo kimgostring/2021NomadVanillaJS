@@ -1,18 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    color: rgb(248, 248, 248); /* 텍스트 컬러 변경 property */
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+    text-align: center;
+}
+
 body {
     background-color:#34495e;
-    color: rgb(248, 248, 248); /* 텍스트 컬러 변경 property */
-    font-family: "kopubWorld돋움체 light";
-    text-align: center;
 }
 
 .weatherText {
     display: block;
     text-align: right;
+    font-size: 15px;
 }
 
 h1 {
     filter:drop-shadow(0px 0px 7px #34495e);
-    font-size: 90px;
+    font-size: 100px;
+    font-weight: 700;
+
+    margin-bottom: 0px;
+}
+
+h4 {
+    filter:drop-shadow(0px 0px 7px #34495e);
+    font-size: 30px;
+    font-weight: 600;
+    
+    margin-top: 0px;
+    margin-bottom: 50px;
+}
+
+input {
+    filter:drop-shadow(0px 0px 4px #34495e);
+    font-size: 30px;
+    text-align: center;
+    
+    color: rgb(248, 248, 248); /* 텍스트 컬러 변경 property */
+    width: 250px;
+    border: none;
+    border-bottom:rgb(248, 248, 248) solid 3px;
+    background-color: transparent;
+
+    margin-bottom: 50px;
+}
+
+input::placeholder {
+    font-size: 30px;
+    font-family: "Noto Serif KR";
+    font-weight: 400;
+    color: rgb(248, 248, 248);
 }
 
 .form, 
@@ -32,14 +72,22 @@ h1 {
 .listName {
     filter:drop-shadow(0px 0px 4px #34495e);
     font-size: 30px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    font-weight: 600;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+}
+
+ul {
+    padding-left: 0px;
 }
 
 li {
     display: grid;
     grid-template-columns:40px 40px 1fr;
-    font-size: 20px;
+    font-size: 23px;
     animation: fadeIn 0.3s linear;
 }
 
@@ -49,7 +97,14 @@ span {
 
 button {
     border: none;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
     background-color: transparent; /* 투명한 배경 */
+}
+
+.bigger {
+    font-size: 24px;
 }
 
 .bgImage {

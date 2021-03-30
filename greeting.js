@@ -23,10 +23,28 @@ function askForName() {
     form.addEventListener("submit", handleSubmit);
 }
 
+function mkGreeting(text) {
+    const hour = new Date().getHours();
+    let nowText;
+
+    if (hour >= 5 && hour < 11) nowText = "morning";
+    else if (hour >= 11 && hour < 16) nowText = "afternoon";
+    else if (hour >= 16 && hour < 19) nowText = "evening";
+    else nowText = "night";
+
+    greeting.innerText = `Good ${nowText}, ${text} 💖`;
+}
+
 function paintGreeting(text) {
     form.classList.remove(SHOWING_CN); // 다음 시간에 form에 showing을 추가할 듯
     greeting.classList.add(SHOWING_CN);
-    greeting.innerText = `Hello ${text}`;
+    
+    todoForm.classList.add(SHOWING_CN);
+    doingTodoList.classList.add(SHOWING_CN);
+    finishedTodoList.classList.add(SHOWING_CN);
+
+    mkGreeting(text);
+    setInterval(mkGreeting, 1000, [text]);
 }
 
 function loadName() {

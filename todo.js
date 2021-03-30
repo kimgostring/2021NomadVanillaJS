@@ -43,7 +43,6 @@ function toggleTodo(event) {
     // 3. LS에 수정사항 반영
     addTodoObj(parseInt(li.id), text, !isFin); // 여기서, parseInt() 적용하지 않으면 문자열로 저장됨
     delTodoObj(li.id, isFin);
-    console.log("here", doingTodos, finishedTodos);
     saveTodos();
 }
 
@@ -77,14 +76,12 @@ function addTodoObj(id, text, isFin) {
 function delTodoObj(id, isFin) {
     if (isFin) {
         const cleanTodos = finishedTodos.filter(function(todo) {
-            if (todo.id === parseInt(id)) console.log("del");
             return todo.id !== parseInt(id); 
         }); 
         finishedTodos = cleanTodos; 
     } else {
         const cleanTodos = doingTodos.filter(function(todo) {
             // !! (추가) local storage에 id값 수정, 저장도 필요
-            if (todo.id === parseInt(id)) console.log("del");
             return todo.id !== parseInt(id); 
         }); 
         doingTodos = cleanTodos; // 바꿔치기, 이것 때문에 todos가 let으로 선언되었어야 함
@@ -112,6 +109,8 @@ function paintTodo(text, isFin) {
     delBtn.innerText = "❌"; // 삭제 버튼 
     delBtn.classList.add(DEL_BTN);
     delBtn.addEventListener("click", deleteTodo); // 버튼 클릭시 todo 삭제
+    delBtn.addEventListener("mouseenter", handleBtnBigger);
+    delBtn.addEventListener("mouseleave", handleBtnSmaller);
 
     const finBtn = document.createElement("button");
     if (isFin) {
@@ -120,6 +119,8 @@ function paintTodo(text, isFin) {
     } else finBtn.innerText = "🤍"; // 복구 버튼
     finBtn.classList.add(FIN_BTN);
     finBtn.addEventListener("click", toggleTodo);
+    finBtn.addEventListener("mouseenter", handleBtnBigger);
+    finBtn.addEventListener("mouseleave", handleBtnSmaller);
 
     // li 안에 순서대로 요소 추가
     li.appendChild(finBtn);
@@ -137,6 +138,14 @@ function paintTodo(text, isFin) {
     // 객체로 만들어 todos들에 추가
     addTodoObj(newID, text, isFin);
     // 여기서 saveTodos()는 필요 없음, 이미 LS에 저장되어 있는 내용을 출력할 수도
+}
+
+function handleBtnBigger(event) {
+    event.target.classList.add("bigger");
+}
+
+function handleBtnSmaller(event) {
+    event.target.classList.remove("bigger");
 }
 
 function handleSubmitTodo(event) {
@@ -157,7 +166,6 @@ function loadTodos(todosName) {
         // console.log(parsedTodos);
 
         parsedTodos.forEach(function(todo) { // object의 원소를 순서대로 하나씩 출력
-            console.log(todo);
             paintTodo(todo.text, isFin);
         });
     }

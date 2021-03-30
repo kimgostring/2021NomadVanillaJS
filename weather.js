@@ -9,11 +9,11 @@ function getWeather(lat, lng) {
     // units=metric, 온도를 미터법으로 표기
     ).then(function(response) { // 데이터가 우리에게 완전히 넘어온 뒤 () 안의 함수 실행
         return response.json();
-    }).then(function(json) { // 데이터를 다 json 형식으로 변환한 뒤 () 실행\
+    }).then(function(json) { // 데이터를 다 json 형식으로 변환한 뒤 () 실행
         const temperature = json.main.temp;
         const place = json.name;
 
-        weather.innerText = `${temperature} @ ${place}`;
+        weather.innerText = `${temperature}℃ @ ${place}`;
         // console.log(json);
     }); 
 }
