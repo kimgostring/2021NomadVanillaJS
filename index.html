@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentum</title>
+    <!--rel : relation, href : hypertext reference-->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="js-weather weatherText">loading...</div>
+
+    <div class="js-clock">
+        <div class="js-title">
+            <h1>00:00</h1>
+        </div>
+    </div>
+    
+    <form class="js-form form">
+        <input type="text" placeholder="What is your name?" />
+    </form>
+    <h4 class="js-greeting greeting"></h4>
+
+    <form class="js-todoForm greeting">
+        <input type="text" placeholder="Write a to do." />
+    </form>
+
+    <div class="todoList">
+        <ul class="js-doingTodoList greeting">
+            <div class="listName">TASKS</div>
+        </ul>
+        <ul class="js-finishedTodoList greeting">
+            <div class="listName">FINISHED</div>
+        </ul>    
+    </div>
+
+    <!-- js 파일은 가장 마지막에 추가 -->
+    <script src="config.js"></script> <!-- API 숨기기 -->
+    <script src="clock.js"></script>
+    <script src="todo.js"></script>
+    <script src="greeting.js"></script> <!-- 기능별로 js 나눠 작성 -->
+    <script src="bg.js"></script>
+    <script src="weather.js"></script>
+</body>
+</html>
